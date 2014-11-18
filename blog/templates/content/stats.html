@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <div class="row-fluid">
+        <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>Views</th>
+            <th>Create Date</th>
+        </tr>
+        {% for blog in blogs %}
+        <tr><td><a href="/post/{{ blog.id }}/{{ blog.title|slugify }}">{{ blog.title }}</a></td><td>{{ blog.views }}</td><td>{{ blog.post_date }}</td></tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

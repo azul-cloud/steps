@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block head_title %}
+Blog Posts about {{ category }}
+{% endblock %}
+
+
+{% block title %}
+All posts about {{ category }}
+{% endblock %}
+
+{% block contentsize %}
+    <div class="content col-md-10 col-md-offset-1">
+{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+  {% for post in posts %}
+    <div class="row">
+      <div class="archive-row col-md-10 col-md-offset-1">
+        <img class="archive-img" title="{{ post.img_title }}" alt="{{ post.img_alt }}" src="../static{{ post.image.url }}"/>
+        <a href=../post/{{ post.id }}/{{ post.title|slugify }}>{{ post.title }}</a><br>
+        {{ post.headline }}
+      </div>
+    </div>
+  {% empty %}
+    <div class="content-text" style="float:right;">
+        <h5>No posts were returned. Pick a category to the right -----></h5>
+    </div>
+  {% endfor %}
+</div>
+<div class="btn-group col-md-4">
+  <button class="btn">All Post Categories</button>
+  <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+    <col-md- class="caret"></col-md->
+  </button>
+  <ul class="dropdown-menu">
+    {% for category in categories %}
+        <li><a href="../category/{{ category.title }}">{{ category.title }}</a></li>
+    {% empty %}
+        There are no categories :(
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

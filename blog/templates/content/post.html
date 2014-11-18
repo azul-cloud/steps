@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+
+{% block head_title %}
+    Travel Blog on Colombia and South America - {{ p.title }}
+{% endblock %}
+
+{% block title %}
+    {{ p.title }}
+{% endblock %}
+
+{% block content %}
+    <script src="/static/js/analytics.js"></script>
+    {% if p.show_pic %}
+        <img class="post-img" title="{{ p.img_title }}" alt="{{ p.img_alt }}"
+            src="http://stepsofatraveler.com/static{{p.image.url}}"/>
+        {% include "ads/leaderboard.html" %}
+    {% endif %}
+    <div class="content-text">
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                {{ p.body|safe }}
+            </div>
+            <div class="col-md-4 col-xs-hidden col-md-hidden">
+                <h1 class="header-inverse text-center">Previous Posts</h1>
+                {% for p in previous_posts %}
+                    {% if forloop.counter < 6 %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{% url post p.id %}/{{ p.title|slugify }}/">
+                            <img class="img-responsive img-opacity" alt="{{ p.img_title }}" src="http://stepsofatraveler.com/static{{p.image.url}}" />
+                            <a href="{% url post p.id %}/{{ p.title|slugify }}/" class="btn btn-block btn-info">{{ p.title }}</a>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                    This is the first post, there are no more previous posts :(
+                {% endfor %}
+                {% include 'ads/skyscraper.html' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Please consider sharing if you liked this post -->
+                <a href="https://twitter.com/stepsoftravel" class="twitter-follow-button" data-show-count="false"
+                        data-size="large">Follow @stepsoftravel</a>
+                <a href="https://twitter.com/share" class="twitter-share-button"
+                        data-via="stepsoftravel" data-size="large">Tweet</a></h3>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <div class="fb-like" data-href="https://www.facebook.com/stepsofatraveler" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                <p><b>What did you think about the post? Comment below!</b></p>
+
+                <div class="post-footer text-center">
+                    <div style="padding-bottom:15px;">
+                        <a href="http://stepsofatraveler.com/post/{{ prevPost.id }}/{{ prevPost.title|slugify}}" class="btn btn-info btn-large">Previous Post</a>
+                        <a style="margin-left:40px;" href="http://stepsofatraveler.com/post/{{ nextPost.id }}/{{ nextPost.title|slugify}}" class="btn btn-info btn-large">Next Post</a>
+                    </div>
+                    <p>Created on {{p.post_date}} about <a href="http://stepsofatraveler.com/category/{{ p.category }}"> {{ p.category }} </a></p>
+                    {% include "base/comments.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block contentsize %}
+    <div class="content col-md-10 col-md-offset-1">
+{% endblock %}

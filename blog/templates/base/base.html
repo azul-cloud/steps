@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      {% block head_title %}Travel Blog on Colombia, Life, and South America{% endblock %}
+    </title>
+    {% load static %}
+      <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/bootstrap.css" media="screen" />
+      <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/style.css" media="screen" />
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css'>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="{% get_static_prefix %}js/bootstrap.js" %}></script>
+      <script src="/static/js/analytics.js"></script>
+      <link rel="steps icon" href="{% get_static_prefix %}img/icons/StepsIcon.ico">
+      {% include "base/seometadata.html" %}
+  </head>
+  <body style="background-color:#30302E;">
+  <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+  <div id="wrap">
+    {% include "base/header.html" %}
+    <div class="main container clear-top fill">
+        <div class="row fill">
+            {% block contentsize %}
+            <div class="content col-md-7 col-md-offset-1">
+                {% endblock %}
+                <div class="jumbotron content-header"><h1>
+                    {% block title %}
+                    {% endblock %}
+                    </h1>
+                    </div>
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                {% block sidebar %}
+                <div class="sidebar col-md-3 col-md-offset-1">
+                    {% include "content/twitter.html" %}
+                </div>
+                {% endblock %}
+            </div>
+        </div><!--row-->
+        </div><!--i don't know what this is-->
+    </div><!--container-->
+  </div> <!--wrap-->
+  <footer class="footer">
+    {% include "base/footer.html" %}
+  </footer>
+  </body>
+</html>

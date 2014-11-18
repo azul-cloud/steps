@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+The Recent Stuff
+{% endblock %}
+
+{% block contentsize %}
+    <div class="content col-md-10 col-md-offset-1">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center">
+    {% for p in posts %}
+        {% if forloop.first %}
+            <a href="../post/{{ p.id }}/{{ p.title|slugify }}/">
+                <img class="img-responsive img-rounded home-post-img" src="../static{{ p.image.url }}" />
+            </a>
+            <div class="home-post-footer">
+                <h4 {% if forloop.first %} class="text-center" %}{% endif %}>{{ p.headline }}</h4>
+                <p class="text-center"><a href=../post/{{ p.id }}/{{ p.title|slugify }} class="btn btn-info">{{ p.title }}</a></p>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        {% for p in posts %}
+        {% if forloop.counter == 2 or forloop.counter = 3 %}
+        <a href=../post/{{ p.id }}/{{ p.title|slugify }}>
+            <img class="img-responsive img-rounded" src="../static{{ p.image.url }}"/>
+        </a>
+        <div class="home-post-footer">
+            <h4 {% if forloop.first %} class="text-center" %}{% endif %}>{{ post.headline }}</h4>
+            <p class="text-center"><a href=../post/{{ p.id }}/{{ p.title|slugify }} class="btn btn-info">{{ p.title }}</a></p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-md-4">
+        {% include "content/twitter.html" %}
+    </div>
+    {% include 'ads/leaderboard.html' %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<!--    <div class="sidebar col-md-3 col-md-offset-1">
+        {% include "content/twitter.html" %}
+    </div> -->
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+The Archive
+{% endblock %}
+
+{% block contentsize %}
+    <div class="content col-md-10 col-md-offset-1">
+{% endblock %}
+
+{% block content %}
+  <div class="row" style="padding-bottom:20px;">
+    <div class="col-md-6 text-center">
+        <form class="form-inline" role="form" method="get">
+            <div class="form-group">
+                <input class="col-md-10 form-control" id="appendedInputButton"
+                    placeholder="What are you looking for?" type="text" name="search">
+            </div>
+            <button class="btn btn-info" type="submit" value="search"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+    </div>
+
+    <div class="btn-group col-md-6 text-center">
+      <button class="btn">Categories</button>
+      <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+        <col-md- class="caret"></col-md->
+      </button>
+      <ul class="dropdown-menu">
+        {% for category in categories %}
+            <li><a href="../category/{{ category.title }}">{{ category.title }}</a></li>
+        {% empty %}
+            There are no categories :(
+        {% endfor %}
+      </ul>
+    </div>
+  </div><!-- end row -->
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+          {% for post in posts.object_list %}
+              <div class="archive-row col-md-10 col-md-offset-1">
+                <div class="col-md-6">
+                <img class="img-responsive" title="{{ post.img_title }}" alt="{{ post.img_alt }}" src="../static{{ post.image.url }}"/>
+                </div>
+                <div class="col-md-6">
+                <p><a href=../post/{{ post.id }}/{{ post.title|slugify }}>{{ post.title }}</a><br>
+                {{ post.headline }}</p>
+                Created on {{ post.post_date }}
+                </div>
+              </div>
+          {% empty %}
+            <div class="content-text"><h5>{{ text }}</h5></div>
+          {% endfor %}
+        </div>
+
+        <div class="row text-center">
+            <div class="pagination pagination-centered">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.</col-md->
+                <ul class="pager">
+                    <li class="next{% if not posts.has_next %} disabled {% endif %}"><a href="?page={{ posts.next_page_number }}">Next</a></li>
+                    <li class="previous{% if not posts.has_previous %} disabled {% endif %}"><a href="?page={{ posts.previous_page_number }}">Previous</a></li>
+                 </ul>
+             </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Popular Posts</h2>
+          {% for post in pop_posts %}
+            <div class="link-list"><h4>
+                <a href=../post/{{ post.id }}/{{ post.title|slugify }}>{{ post.title }}</a><br>
+            </h4></div>
+          {% empty %}
+            <div class="content-text">there were no posts returned? Sorry about that.</div>
+          {% endfor %}
+        </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

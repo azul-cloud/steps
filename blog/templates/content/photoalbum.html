@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block head_title %}
+Pictures of Latin America | Pictures of South America | Pictures of Colombia
+{% endblock %}
+
+{% block contentsize %}
+    <div class="content span10 offset1" style="display:inline-block;">
+{% endblock %}
+
+{% block title %}
+Photo Albums
+{% endblock %}
+
+{% block content %}
+  <div class="row-fluid photo-album-content">
+      {% for album in albums %}
+        <div class="photo-album">
+            <a href="{{ album.url }}" class="photo-album-link" target="blank">
+                <span class="photo-album-title">
+                    {{ album.title }}
+                </span>
+                <img class="photo-album-pic" title="{{ album.img_title }}" alt="{{ album.img_alt }}" src="../static/img/{{ album.image }}" />
+            </a>
+        </div>
+      {% empty %}
+        <div class="content-text"><h3>There are no photo albums available.</h3></div>
+      {% endfor %}
+  </div> <!--row-fluid-->
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
